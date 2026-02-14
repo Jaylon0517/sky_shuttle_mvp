@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://main001"]
+
+[ext_resource type="Script" uid="uid://dgpdan67pcuo0" path="res://scripts/game_manager.gd" id="1_game_manager"]
+[ext_resource type="Script" uid="uid://bp8ooc7uf5fuc" path="res://scripts/card_system.gd" id="2_card_system"]
+[ext_resource type="Script" uid="uid://bf7d3123g2pwh" path="res://scripts/map_generator.gd" id="3_map_gen"]
+[ext_resource type="PackedScene" uid="uid://player001" path="res://scenes/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" uid="uid://hud001" path="res://scenes/ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" uid="uid://gameover001" path="res://scenes/ui/game_over_screen.tscn" id="6_game_over"]
+
+[node name="Main" type="Node2D" unique_id=1327436049]
+
+[node name="GameManager" type="Node" parent="." unique_id=1247414632]
+script = ExtResource("1_game_manager")
+
+[node name="CardSystem" type="Node" parent="GameManager" unique_id=652421662]
+script = ExtResource("2_card_system")
+
+[node name="MapGenerator" type="Node2D" parent="." unique_id=857037655]
+script = ExtResource("3_map_gen")
+
+[node name="Background" type="ColorRect" parent="." unique_id=718031693]
+z_index = -100
+offset_right = 720.0
+offset_bottom = 1280.0
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="Player" parent="." unique_id=1717806269 instance=ExtResource("4_player")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1674841901]
+position = Vector2(360, 640)
+anchor_mode = 1
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 720
+limit_bottom = 1280
+
+[node name="HUD" parent="." unique_id=1600832567 instance=ExtResource("5_hud")]
+
+[node name="GameOverScreen" parent="." unique_id=1135659110 instance=ExtResource("6_game_over")]
+visible = false

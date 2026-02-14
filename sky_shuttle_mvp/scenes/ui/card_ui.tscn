@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://cardui001"]
+
+[ext_resource type="Script" path="res://scripts/card_ui.gd" id="1_card_ui"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.2, 0.25, 0.35, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4, 0.5, 0.7, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_left = 15
+corner_radius_bottom_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_hover"]
+bg_color = Color(0.3, 0.35, 0.45, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.6, 0.8, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_left = 15
+corner_radius_bottom_right = 15
+
+[node name="CardUI" type="Button"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 3
+anchors_preset = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+theme_override_styles/hover = SubResource("StyleBoxFlat_card_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_card_hover")
+script = ExtResource("1_card_ui")
+
+[node name="ColorIndicator" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+text = "卡牌名"
+horizontal_alignment = 1
+
+[node name="CostLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 1

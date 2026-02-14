@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://wrench001"]
+
+[ext_resource type="Script" path="res://scripts/wrench_projectile.gd" id="1_wrench"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrench"]
+size = Vector2(30, 20)
+
+[node name="WrenchProjectile" type="Area2D"]
+collision_layer = 4
+collision_mask = 6
+monitoring = true
+monitorable = true
+groups = ["projectiles"]
+script = ExtResource("1_wrench")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wrench")

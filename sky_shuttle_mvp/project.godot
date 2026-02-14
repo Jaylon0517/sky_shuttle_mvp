@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Sky Shuttle MVP"
+config/description="天际飞梭：卡牌冲刺 - MVP版本"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[input]
+
+drag_card={
+"deadzone": 0.5,
+"events": []
+}
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Obstacles"
+2d_physics/layer_3="Projectiles"
+2d_physics/layer_4="Collectibles"
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

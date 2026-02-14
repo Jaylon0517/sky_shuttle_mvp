@@ -1,0 +1,205 @@
+[gd_scene load_steps=5 format=3 uid="uid://hud001"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" uid="uid://cardui001" path="res://scenes/ui/card_ui.tscn" id="2_cardui"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress"]
+bg_color = Color(0.2, 0.8, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_handarea"]
+bg_color = Color(0.1, 0.1, 0.15, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.5, 0.5)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hud")
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+z_index = 100
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="HpContainer" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DistanceLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "距离: 0 m"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BottomBar" type="VBoxContainer" parent="."]
+z_index = 100
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -320.0
+offset_right = -100.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="InfoBar" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+
+[node name="DeckContainer" type="VBoxContainer" parent="BottomBar/InfoBar"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DeckTitle" type="Label" parent="BottomBar/InfoBar/DeckContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "牌库"
+horizontal_alignment = 1
+
+[node name="DeckLabel" type="Label" parent="BottomBar/InfoBar/DeckContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "10"
+horizontal_alignment = 1
+
+[node name="HandArea" type="Panel" parent="BottomBar"]
+z_index = 100
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_handarea")
+
+[node name="HandTitle" type="Label" parent="BottomBar/HandArea"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "◆ 手牌区 - 点击使用 ◆"
+horizontal_alignment = 1
+
+[node name="HandContainer" type="HBoxContainer" parent="BottomBar/HandArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 35.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="BottomBar"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+max_value = 10.0
+step = 0.1
+value = 5.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_progress")
+
+[node name="BulletTimeOverlay" type="ColorRect" parent="."]
+z_index = 200
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.2, 0)
+
+[node name="OverheatOverlay" type="ColorRect" parent="."]
+z_index = 200
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3, 0.3, 0.3, 0)
+
+[node name="OverheatLabel" type="Label" parent="OverheatOverlay"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "重洗冷却中..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftButton" type="Button" parent="."]
+z_index = 100
+custom_minimum_size = Vector2(80, 240)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -310.0
+offset_right = 90.0
+offset_bottom = -70.0
+grow_vertical = 0
+focus_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 48
+text = "←"
+
+[node name="RightButton" type="Button" parent="."]
+z_index = 100
+custom_minimum_size = Vector2(80, 240)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -310.0
+offset_right = -10.0
+offset_bottom = -70.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 48
+text = "→"
