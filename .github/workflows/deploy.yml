@@ -1,15 +1,25 @@
-name: Deploy Godot Game
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  export:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Install Godot
         run: |
           wget -q https://downloads.tuxfamily.org/godotengine/4.6/Godot_v4.6-stable_linux.x86_64.zip
@@ -17,19 +27,20 @@ jobs:
           chmod +x Godot_v4.6-stable_linux.x86_64
           sudo mv Godot_v4.6-stable_linux.x86_64 /usr/local/bin/godot
           
-      - name: Install Templates
+      - name: Setup Export Templates
         run: |
           wget -q https://downloads.tuxfamily.org/godotengine/4.6/Godot_v4.6-stable_export_templates.tpz
           mkdir -p ~/.local/share/godot/export_templates/4.6.stable
-          unzip Godot_v4.6-stable_export_templates.tpz -d ~/.local/share/godot/export_templates/4.6.stable || true
+          unzip -o Godot_v4.6-stable_export_templates.tpz -d ~/.local/share/godot/export_templates/4.6.stable
           
-      - name: Build Web Version
+      - name: Export Web Build
         run: |
           mkdir -p build/web
-          godot --headless --path . --export-release "Web" build/web/index.html || echo "Export may need adjustments"
+          godot --headless --path . --export-release Web build/web/index.html
           
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
